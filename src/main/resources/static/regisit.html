@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<form id="form-reg">
+
+    <tr>
+        <td><input type="text" id="username" name="username"></td><br>
+        <td><input type="password" id="password" name="password"></td><br>
+        <td><input type="button" value="注册" id="btn-reg"></td>
+        <a href="login.html">没有账号，进入登录界面</a>
+    </tr>
+
+</form>
+
+<script type="text/javascript">
+    $("#btn-reg").click(function() {
+        // alert("准备注册！");
+        $.ajax({
+            "url":"/users/reg",
+            "data":$("#form-reg").serialize(),
+            "type":"post",
+            "dataType":"json",
+            "success":function (json) {
+                if (json.state == 2002) {
+                    alert("注册失败："+json.message);
+                } else {
+                    alert("注册成功：");
+                    location.href="index.html";
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

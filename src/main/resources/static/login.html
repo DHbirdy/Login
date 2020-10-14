@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<form id="form-login">
+    <div>
+        <tr>
+            <td><input type="text" id="username" name="username"></td><br>
+            <td><input type="password" id="password" name="password"></td><br>
+            <td><input type="button" value="登录" id="btn-login"></td>
+            <a href="register.html">已有账号，进入注册界面</a>
+        </tr>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $("#btn-login").click(function() {
+        // alert("准备注册！");
+        $.ajax({
+            "url":"/users/login",
+            "data":$("#form-login").serialize(),
+            "type":"get",
+            "dataType":"json",
+            "success":function (json) {
+                if (json.state == 2004) {
+                    alert("登录失败："+json.message);
+                } else {
+                    alert("登录成功：");
+                    location.href="index.html";
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
